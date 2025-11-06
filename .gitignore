@@ -6,4 +6,4 @@
 *.rdb
 
 # ignore ds_store files
-.DS_Store
+.DS_Store"model_training/trained_models/baseline_rnn/checkpoint/" 
