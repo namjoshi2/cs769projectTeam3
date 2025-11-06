@@ -1,0 +1,2 @@
+*.pkl filter=lfs diff=lfs merge=lfs -text
+model_training/trained_models/baseline_rnn/checkpoint/* filter=lfs diff=lfs merge=lfs -text
