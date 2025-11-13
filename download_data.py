@@ -1,13 +1,3 @@
-"""
-Run this file to download data from Dryad and unzip the zip files. Downloaded files end
-up in this repostitory's data/ directory.
-
-First create the b2txt25 conda environment. Then in a Terminal, at this repository's
-top-level directory (nejm-brain-to-text/), run:
-
-conda activate b2txt25
-python download_data.py
-"""
 
 import sys
 import os
@@ -50,12 +40,7 @@ def main():
 
     DATA_DIR = "data/"
     data_dirpath = os.path.abspath(DATA_DIR)
-    assert os.getcwd().endswith(
-        "nejm-brain-to-text"
-    ), f"Please run the download command from the nejm-brain-to-text directory (instead of {os.getcwd()})"
-    assert os.path.exists(
-        data_dirpath
-    ), "Cannot find the data directory to download into."
+    
 
     ## Get the list of files from the latest version on Dryad.
 
