@@ -1,0 +1,20 @@
+# Ignore the data directory containing the large B-T-T datasets
+data/
+
+# Ignore any specific model checkpoints or results
+checkpoints/
+results/
+
+# Exclude the massive data and model directories
+data/
+language_model/pretrained_language_models
+# Exclude other large/non-essential files
+model_training/
+analyses/
+b2txt_methods_overview.png
+test_run.ipynb
+build/
+nejm_b2txt_utils.egg-info/
+# Exclude the Dockerfile and .dockerignore itself
+Dockerfile
+.dockerignore

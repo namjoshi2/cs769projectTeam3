@@ -1,0 +1,32 @@
+# ignore python bytecode files
+*.pyc
+*.egg-info
+
+# ignore rdb files
+*.rdb
+
+model_training/trained_models/baseline_rnn/checkpoint
+model_training/trained_models/bi_rnn
+model_training/trained_models/bi_rnn2/checkpoint
+model_training/trained_models/bi_rnn2/checkpoint/best_checkpoint
+model_training/training.out
+model_training/training_2.1.out
+model_training/training_2.out
+model_training/training_3.out
+data
+language_model/pretrained_language_models
+language_model/runtime
+language_model/examples
+language_model/srilm-1.7.3
+language_model/docs
+analyses
+
+# Python junk
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+
+
