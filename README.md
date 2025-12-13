@@ -106,3 +106,44 @@ Our Kaldi-based ngram implementation requires a different version of torch than 
 ```
 
 Verify it worked by activating the conda environment with the command `conda activate b2txt25_lm`.
+
+## SE-CRNN
+We implemented a Convolutional Recurrent Neural Network (CRNN) model with Channel Attention module. Our primary architectural contribution to the pipeline approach is the integration of Channel Attention via Squeeze-and-Excitation (SE) blocks.
+
+### End-to-End Run
+- First Install the above dependencies (Redis, Conda) using the instructions mentioned in the "Dependencies" section.
+- Download data using download_data.py script.
+- Download the language models from [`Dryad`](https://datadryad.org/dataset/doi:10.5061/dryad.x69p8czpq). 
+    - languageModel.tar.gz - 3gram
+    - languageModel_5gram.tar.gz - 5gram
+- Extract them in the "language_model/pretrained_language_models" directory.
+- Create a conda environment for SE-CRNN architecture. To create a conda environment with the necessary dependencies, run the following command from the root directory of this repository:
+```bash
+./setup.sh
+```
+Verify it worked by activating the conda environment with the command `conda activate b2txt25`.
+- Create a conda environment for N-gram + OPT model. To create this conda environment, run the following command from the root directory of this repository. Verify it worked by activating the conda environment with the command `conda activate b2txt25_lm`.
+```bash
+./setup_lm.sh
+```
+- To evaluate the model, first start a redis server on `localhost` in terminal with:
+```
+redis-server
+```
+- Start language model (If you extracted the 5-gram model by the directory name "openwebtext_5gram_lm_sil" change the lm_path arg to "openwebtext_5gram_lm_sil/lang_test", for 3-gram model change the lm_path arg to the directory name of the extracted zip file "languageModel"). If GPU memory is not available, please change the device to cpu inside the `language_model/language-model-standalone.py` script.
+```
+conda activate b2txt25_lm
+python language_model/language-model-standalone.py --lm_path language_model/pretrained_language_models/openwebtext_1gram_lm_sil --do_opt --nbest 100 --acoustic_scale 0.325 --blank_penalty 90 --alpha 0.55 --redis_ip localhost --gpu_number 0
+```
+- Evaluate by:
+```
+conda activate b2txt25
+python evaluate_model3.py --model_path ../model_training/trained_models/fastbci_se --data_dir ../data/hdf5_data_final --eval_type test --gpu_number 1
+```
+- The submission csv file will be save in the `trained_models/fastbci_se` directory. You can submit it on Kaggle Brain-To-Text '25 competition to get the final WER score.
+- Optional (Train the SE-CRNN from scratch)
+```
+conda activate b2txt25
+CUDA_VISIBLE_DEVICES=0 python3 train_model_bci_se.py
+```
+
